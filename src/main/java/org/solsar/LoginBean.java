@@ -3,10 +3,9 @@ package org.solsar;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
  
 @Named
 @RequestScoped
@@ -33,8 +32,7 @@ public class LoginBean {
 		this.password = password;
 	}
  
-	public void login(ActionEvent event) {
-		RequestContext context = RequestContext.getCurrentInstance();
+	public void login() {
 		FacesMessage message = null;
 		boolean loggedIn = false;
  
@@ -47,7 +45,7 @@ public class LoginBean {
 		}
  
 		FacesContext.getCurrentInstance().addMessage(null, message);
-		context.addCallbackParam("loggedIn", loggedIn);
+		PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
 	}
  
 }
